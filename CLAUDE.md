@@ -1,7 +1,7 @@
 # Project Context
 
 ## Current Status (update this each session — 1–2 lines, detail lives in GitHub Issues)
-S1–S7 complete (2026-08-30): Python 3.14 confirmed, Docker chosen for PostgreSQL (Docker Desktop installed, not yet running for project use), Node.js/npm confirmed, GitHub account confirmed, `gh` CLI installed and authenticated as kenny-Makk, repo created at https://github.com/kenny-Makk/volunteer-ops-platform (public). Next up: S8 — place `CLAUDE.md`/`00_AI-Context.md`/`01_Volunteer-Ops-Platform-Spec.md` in the project folder (already done locally), run `git init`, add remote, first commit. See GitHub Issues/Projects board (not yet set up) for detailed task status going forward (Section 22 of `01_Volunteer-Ops-Platform-Spec.md` lists all tasks S1–S11, 1–15, 16–34, 35–48).
+S1–S11 and V1 Task 1 complete (2026-08-31): pre-project setup finished (repo initialized, pushed to https://github.com/kenny-Makk/volunteer-ops-platform, `.gitignore`/`.env.example` in place, `venv` created). Task 1 — FastAPI/SQLAlchemy/Alembic/JWT deps installed (`requirements.txt`), project structure scaffolded (`app/core/`, `app/models/`, `app/schemas/`, `app/services/`, `app/api/v1/`, `tests/`), `app/main.py` boots and `/health` returns `200 OK`. Next up: V1 Task 2 — ERD by hand (Kent to attempt first per the coding/learning workflow, then Claude Code reviews). See GitHub Issues/Projects board (not yet set up) for detailed task status going forward (Section 22 of `01_Volunteer-Ops-Platform-Spec.md` lists all tasks S1–S11, 1–15, 16–34, 35–48).
 
 This project (Volunteer Operations Automation Platform) has its context split across two files in the project root. Read both before starting work.
 
