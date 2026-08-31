@@ -82,6 +82,12 @@ Example event chain observed in practice: an applicant is assessed → marked su
 
 Slack usage at ISLA involves onboarding, assessment channels, project/team channels, threads, search, notifications, and general user adoption. Some of the friction observed there is a user-adoption or process-governance problem rather than an integration/technical one, and is deliberately left **outside** the prototype's technical automation scope. Not every operational issue observed in the field is treated as something to automate — some are process or training problems, and are named as such rather than forced into a technical solution.
 
+## Additional Observed Structure (recorded, not adopted into the domain model)
+
+ISLA's real organisational structure is more complex than the flagship's domain model represents: it runs multiple parallel Initiatives (e.g. GLOW — with Streams Grow/Link/Orientate/Welcome — alongside IT Support, the Anti-Racism Directory, Better Impact Administration, Helpdesk, and Google Drive Review), each potentially containing multiple Projects and Events. This was considered as a Program→Initiative→Stream→Project→Event hierarchy for the domain model and deliberately **not adopted** for V1: it does not trace back to any FR-01–FR-12 requirement, adds ER-design complexity disproportionate to the current learning stage, and the flagship targets one selected workflow (application→assessment→volunteer→onboarding→attendance) rather than ISLA's full organisational structure. If a future requirement genuinely needs to model cross-project automation, this structure is the reference starting point.
+
+Note: the domain model's `MembershipTier` entity (Bronze/Silver/Gold contribution-hour grades) is unrelated to this "Program" terminology — the two must not be conflated. `MembershipTier` was originally named `Program` during ER design and was renamed specifically to avoid this collision.
+
 ---
 
 # 2. Business Objectives
@@ -191,8 +197,10 @@ RBAC and API design should be derivable from this actor list.
 
 # 7. Domain Model
 
-Core entities: User, Volunteer, Role, Permission, Program, Application, Assessment, Event, Attendance, VolunteerHour, Notification, AuditLog.
+Core entities: User, Volunteer, Role, Permission, MembershipTier, Application, Assessment, Event, Attendance, VolunteerHour, Notification, AuditLog.
 Optional if justified: SupportRequest, TrainingRecord, MessageTemplate.
+
+Note: `MembershipTier` (Bronze/Silver/Gold contribution-hour grades, e.g. 30/60/90 hours) was originally drafted as `Program` during ER design, then renamed to avoid colliding with ISLA's own unrelated use of "Program" (see the ISLA organisational-structure note in Section 1) — the two concepts are unrelated and must not be conflated.
 
 Attendance and volunteer-hour records are operationally significant, not arbitrary schema choices — they contribute to program participation tracking and volunteer recognition/records at ISLA. (Note: certification-tier logic such as Bronze/Gold milestones belongs to the separate ISLA Attendance System case in `00_AI-Context.md` Section 2B and is deliberately not merged into this flagship's domain model — keep the two projects' entities distinct.)
 
