@@ -20,9 +20,21 @@ companion_files: 00_AI-Context.md, 01_Volunteer-Ops-Platform-Spec.md
 # 2. Entry-Point Pathways (ranked by realism given current constraints)
 
 ## Pathway 1 — University-registered industry placement/capstone (highest priority, check first)
-- Check the Master of IT program's unit guide for a subject such as "Industry Project," "Capstone," "Professional Practicum," or "Work-Integrated Learning."
-- If it's CRICOS-registered as part of the course: hours are exempt from the 48-hour cap, it counts toward the degree (no competition with study time), and it produces a real employer contact + reference + portfolio artifact.
-- **Action**: check this first, before anything else in this file. Email the course coordinator if the unit guide is unclear.
+
+**Confirmed to exist (2026-08-30)**: Macquarie University's School of Computing runs exactly this mechanism — **COMP8851 (Internship, part-time, 20cp)**, combinable with **COMP8860** for a full-time version (40cp). Convenor for Internship: Dr Yuankai Qi (yuankai.qi@mq.edu.au); Convenor for the Internal Project fallback: Dr Adnan Mahmood (adnan.mahmood@mq.edu.au).
+
+**Key rules**:
+- Must be in **final semester** to qualify (WAM 75+ strongly recommended). A "penultimate semester under special circumstances" exception exists with Course Director approval — worth proactively asking about given the time pressure discussed elsewhere in this document, rather than waiting passively for final semester.
+- Project must align with the declared specialisation (Information Systems, in Kent's case).
+- **Unpaid** — this is part of the coursework, not a paid placement.
+- **Company must be registered in Australia and the placement must be completed in person** — no remote/overseas-company placements. No citizenship/visa restriction is stated in the unit's own rules (unlike many corporate programs) — this may make it more genuinely open to international students than Pathway 2's corporate programs, though the sponsoring company could still impose its own requirements.
+- Part-time: 2.5 days/week for 13 weeks (Week 1–13 of the session). Full-time: 5 days/week for 13 weeks.
+- Student can either pick from a university-provided company list or find a company independently (the latter is explicitly encouraged too).
+- **Fallback**: if no sponsoring company is secured by the cutoff (~21 July for a Session 2 enrolment), the student is automatically assigned an **Internal Project** instead (under Dr Adnan Mahmood) — this may be worth exploring directly, since it opens the possibility of proposing the existing flagship project (Volunteer Operations Automation Platform) as the Internal Project itself, for course credit.
+
+**Annual cycle (based on the S2-2026 cycle observed)**: Expression of Interest (EoI) form → an Internship Workshop (~early June) → student contacts company supervisors, interviews, submits an Internship Proposal → company submits the MQ Internship Form to PACE by mid-July → enrolment confirmed if approved.
+
+**Action for Kent**: given a late-2027 graduation, the "final semester" cycle is most likely Session 2, 2027 — watch for the equivalent invitation email around May–June 2027. In parallel, proactively contact the Course Director now (rather than waiting) to ask about the penultimate-semester exception, and separately ask Dr Adnan Mahmood whether the existing flagship project could be proposed as an Internal Project for credit.
 
 ## Pathway 2 — Vacation/Summer Internship Programs (time-sensitive, high payoff)
 - Large employers (e.g. Deloitte, PwC) run 4–8 week paid internships aimed at **penultimate-year students**, during the Nov–Feb university break (which conveniently falls outside the 48-hour cap anyway). These are the standard pipeline into full-time Graduate Programs.
@@ -103,7 +115,7 @@ A live search confirmed this isn't just a theoretical strategy — concrete curr
 
 # 5. Open Items / Not Yet Verified
 
-- Whether Kent's specific Master of IT program has a CRICOS-registered placement subject, and its timing/prerequisites.
+- **Resolved (2026-08-30)**: Kent's Master of IT program does have a CRICOS-registered placement unit — COMP8851/COMP8860 — confirmed via a university email. Its timing/prerequisites are now documented in Section 2 Pathway 1. Remaining unknowns: whether the penultimate-semester exception is grantable in Kent's case, and whether the flagship project could be proposed as the Internal Project fallback.
 - Which specific employers' current Vacation Program cycles are open right now (Aug 2026) and their international-student eligibility — needs a live check, not assumption.
 - Whether the proposed 60-hour/fortnight cap increase has since been legislated (it was only a proposal as of mid-2026).
 - Current Subclass 485 duration/fee terms at the time Kent actually applies (these have changed multiple times in recent years — re-verify in 2027, don't rely on 2026 figures).
