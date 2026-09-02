@@ -74,6 +74,10 @@ Example event chain observed in practice: an applicant is assessed → marked su
 
 **Better Impact Access Documentation**: Documented administrator roles, permissions, access purposes, sensitive access categories, current access holders, and areas requiring confirmation. Purpose: support access consistency, privacy awareness, handover, future onboarding, and delegation — framed as capacity-building/delegation work, not only a security exercise (e.g. certain recurring tasks, such as updating response templates, were identified as delegable to a trusted IT-capable team member rather than requiring a specific staff member). This observation is the real-world root of the RBAC design, and one input into the broader access/data-governance thinking in Sections 8–10 — it is not the sole origin of the Source of Truth decision, which is a broader architecture judgment made in response to the cross-system inconsistency pattern above.
 
+**Concrete finding from the access review (informs RBAC design directly)**: Better Impact's real administrator layer is not a single role — it comprises at least 4 distinct role types (a hours/reporting-focused role, a general volunteer-administration role, a recruitment-focused role, and a "limited admin" role of unconfirmed scope), each with a different set of the ~50 granular permissions across ~12 categories (Activities & Scheduling, Communications, Configuration, Search, User Profile, etc.), and each with a different sensitivity level (some included raw-data export or file-deletion rights; others were limited to logging hours). Notably, even ISLA's own review had unresolved questions about whether this 4-role list was complete and what the "limited admin" role was for — the real system's RBAC structure is itself a work in progress, not a fixed reference to copy exactly.
+
+**Design implication (resolves the earlier open question on Role modeling)**: this evidence is why the prototype's `Role`/`Permission` are modeled as a flexible many-to-many relationship (DB-driven, not a fixed code enum) rather than the fixed 3-role assumption in Section 10 — the real organisation already has more than 3 distinct permission tiers, and treats roles as something that changes over time. V1 does **not** attempt to reproduce Better Impact's full ~50-permission granularity, since that doesn't trace to any FR-01–FR-12 requirement — it implements a small representative permission set (e.g. approve volunteer hours, manage applications, view reports, manage users) sufficient to demonstrate the RBAC pattern, with a `sensitive` flag on `Permission` inspired by the real "Sensitive Access" column.
+
 **Google Forms Attachment Permission Issue**: Applicants upload assessment attachments via Google Forms. One administrator can view the attachments; some assessors can access the form/responses but cannot see the attachments themselves. This forces assessors to work jointly rather than independently. This is evidence of recurring access/integration/application-support friction in the current tool landscape — it is not itself a functional requirement the prototype sets out to fix, and the flagship is not designed to solve this specific bug.
 
 **Reusable Communication Templates (observation)**: Reusable Better Impact email templates were observed to meaningfully reduce repetitive administrative work. This observation is the real-world justification for the prototype's `MessageTemplate` entity and automated-communication design (Section 7).
@@ -197,12 +201,96 @@ RBAC and API design should be derivable from this actor list.
 
 # 7. Domain Model
 
-Core entities: User, Volunteer, Role, Permission, MembershipTier, Application, Assessment, Event, Attendance, VolunteerHour, Notification, AuditLog.
-Optional if justified: SupportRequest, TrainingRecord, MessageTemplate.
+**Finalized ERD (Task 2 complete, 2026-09-01).** 9 core domain entities + 3 junction/support tables, all with confirmed PK/FK and cardinality, designed in draw.io and reviewed field-by-field:
 
-Note: `MembershipTier` (Bronze/Silver/Gold contribution-hour grades, e.g. 30/60/90 hours) was originally drafted as `Program` during ER design, then renamed to avoid colliding with ISLA's own unrelated use of "Program" (see the ISLA organisational-structure note in Section 1) — the two concepts are unrelated and must not be conflated.
+**Core domain entities**: Application, Assessment, Volunteer, MembershipTier, Event, Attendance, Role, Permission, VolunteerHour.
+**Junction/support tables**: User, UserRole (User↔Role many-to-many), RolePermission (Role↔Permission many-to-many).
+Deferred/optional (not yet modeled): Notification, AuditLog, SupportRequest, TrainingRecord, MessageTemplate.
 
-Attendance and volunteer-hour records are operationally significant, not arbitrary schema choices — they contribute to program participation tracking and volunteer recognition/records at ISLA. (Note: certification-tier logic such as Bronze/Gold milestones belongs to the separate ISLA Attendance System case in `00_AI-Context.md` Section 2B and is deliberately not merged into this flagship's domain model — keep the two projects' entities distinct.)
+## Entity definitions (as modeled)
+
+```
+Application
+- id (PK)
+- applicant_name
+- status (pending/accepted/rejected)
+- submitted_at
+
+Assessment
+- id (PK)
+- application_id (FK → Application.id)   [1:1 with Application, optional]
+- result (pass/fail)
+- assessed_by (FK → User.id)             [1:many from User, optional]
+
+Volunteer
+- id (PK)
+- assessment_id (FK → Assessment.id)     [1:1 with Assessment, optional — only a passing Assessment produces a Volunteer]
+- user_id (FK → User.id)                 [many:1 to User, mandatory — a Volunteer is always a User]
+- name
+- joined_at
+- membership_tier_id (FK → MembershipTier.id)
+
+MembershipTier
+- id (PK)
+- name (Bronze/Silver/Gold)
+- required_hours (30/60/90)
+
+Event
+- id (PK)
+- title
+- event_date
+
+Attendance
+- id (PK)
+- event_id (FK → Event.id)
+- volunteer_id (FK → Volunteer.id)
+- registered (yes/no)
+- attended (yes/no)
+- certificate_issued (yes/no)
+
+User
+- id (PK)
+- email
+- hashed_password
+
+UserRole (junction table, resolves User↔Role many-to-many)
+- user_id (FK → User.id)
+- role_id (FK → Role.id)
+
+Role
+- id (PK)
+- name (Volunteer, Team Leader, Administrator)
+
+RolePermission (junction table, resolves Role↔Permission many-to-many)
+- role_id (FK → Role.id)
+- permission_id (FK → Permission.id)
+
+Permission
+- id (PK)
+- name (e.g. approve_volunteer_hours, manage_applications, view_reports, manage_users)
+- sensitive (true/false)
+
+VolunteerHour
+- id (PK)
+- volunteer_id (FK → Volunteer.id)        [mandatory, 1:many from Volunteer]
+- event_name (free text — matches the real Better Impact "External Volunteering" log form)
+- supervisor_name (free text, NOT a User FK — refers to an external supervisor outside the system)
+- organisation_name (free text — the external org where the volunteering happened)
+- evidence_form (reference to a signed evidence form)
+- task_summary (free text reflection)
+- hours
+- minutes
+- status (pending/approved/rejected)
+- approved_by (FK → User.id, nullable — unpopulated until approved)
+```
+
+## Key design decisions and why
+
+- **User vs. Volunteer are separate entities.** A `User` is a login account; a `Volunteer` is the operational record tied to a passing `Assessment`. Confirmed necessary by real evidence: Kent's own Better Impact account holds both an Administrator role and a Volunteer profile simultaneously (same login, "Switch to Volunteer View" toggle) — this is why `User` and `Role` are many-to-many via `UserRole`, not a single fixed role per user.
+- **Role/Permission is a flexible many-to-many model, not a fixed 3-value enum**, directly justified by the real Better Impact Access Review: the actual system has at least 4 distinct administrator role types (not 1), each with a different subset of ~50 granular permissions across ~12 categories, and even ISLA's own review had unresolved questions about whether that role list was complete. V1 does not reproduce that full granularity (it doesn't trace to any FR) — it implements a small representative permission set with a `sensitive` flag (inspired by the real "Sensitive Access" column) sufficient to demonstrate the pattern.
+- **`assessed_by` and `approved_by` are FKs to `User.id`**, not free-text names — this lets "who assessed/approved this" be tracked against a real account rather than a name string, consistent with the audit/traceability NFR.
+- **`supervisor_name` and `organisation_name` on `VolunteerHour` are deliberately free text, not FKs** — they refer to people/organisations external to ISLA (e.g. where a volunteer did external community service), who will never have a `User` account in this system. Forcing them into a FK relationship would be modeling something that isn't actually part of this system's user base.
+- **Approval authority is Role-based, not hardcoded to an individual** — in practice only one person (a Team Leader) currently approves volunteer hours, but the design ties approval capability to the `Team Leader` Role via `UserRole`, not to a specific user, so adding a second approver later requires a data change, not a code change. This directly serves the "reduce dependency on specific individuals" Business Objective.
 
 Core workflow:
 ```
@@ -253,13 +341,17 @@ Applied AI (Operations Copilot)
 
 ---
 
-# 10. RBAC (example)
+# 10. RBAC (finalized model)
 
-| Role | Can |
+RBAC is implemented via `User` ↔ `UserRole` ↔ `Role` ↔ `RolePermission` ↔ `Permission` (both junctions many-to-many) rather than a fixed enum on `User` — see Section 7 for the real-world justification.
+
+| Role | Can (example permissions) |
 |---|---|
 | Volunteer | view own profile, submit own volunteer hours |
-| Team Leader | view team members, approve/reject hours, record attendance |
-| Administrator | manage applications/status, manage users, manage roles/permissions |
+| Team Leader | view team members, approve/reject hours (`approve_volunteer_hours`), record attendance |
+| Administrator | manage applications/status (`manage_applications`), manage users, manage roles/permissions |
+
+A single `User` can hold more than one `Role` simultaneously (e.g. an Administrator who is also a Volunteer) — this is a confirmed real pattern at ISLA, not a hypothetical edge case.
 
 Example: `Volunteer → GET /admin/users → 403 Forbidden`; `Administrator → GET /admin/users → 200 OK`.
 
