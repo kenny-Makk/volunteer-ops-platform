@@ -3,3 +3,4 @@
 from app.models.application import Application  # noqa: F401
 from app.models.assessment import Assessment  # noqa: F401
 from app.models.user import User  # noqa: F401
+from app.models.membershiptier import MembershipTier  # noqa: F401
