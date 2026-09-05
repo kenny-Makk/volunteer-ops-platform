@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.16 Chrome/132.0.6834.196 Electron/34.2.0 Safari/537.36" scale="1" border="0">
   <diagram id="wrnG4gyncphmrPtSOR0q" name="Page-5">
-    <mxGraphModel dx="2636" dy="1472" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1594" dy="925" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -154,7 +154,7 @@
         <mxCell id="VMhfVrZM7FINfIwpZ9IB-8" parent="VMhfVrZM7FINfIwpZ9IB-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="sensitive(true/false)" vertex="1">
           <mxGeometry height="30" width="190" y="90" as="geometry" />
         </mxCell>
-        <mxCell id="VMhfVrZM7FINfIwpZ9IB-9" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="RolePermission" vertex="1">
+        <mxCell id="VMhfVrZM7FINfIwpZ9IB-9" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="RolePermission(AE)" vertex="1">
           <mxGeometry height="90" width="140" x="780" y="1250" as="geometry" />
         </mxCell>
         <mxCell id="VMhfVrZM7FINfIwpZ9IB-11" parent="VMhfVrZM7FINfIwpZ9IB-9" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="role_id (FK → Role.id)" vertex="1">
@@ -187,7 +187,7 @@
         <mxCell id="VMhfVrZM7FINfIwpZ9IB-21" parent="VMhfVrZM7FINfIwpZ9IB-18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="hashed_password" vertex="1">
           <mxGeometry height="30" width="140" y="90" as="geometry" />
         </mxCell>
-        <mxCell id="VMhfVrZM7FINfIwpZ9IB-24" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="UserRole" vertex="1">
+        <mxCell id="VMhfVrZM7FINfIwpZ9IB-24" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="UserRole(AE)" vertex="1">
           <mxGeometry height="90" width="140" x="780" y="825" as="geometry" />
         </mxCell>
         <mxCell id="VMhfVrZM7FINfIwpZ9IB-25" parent="VMhfVrZM7FINfIwpZ9IB-24" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="user_id FK" vertex="1">
