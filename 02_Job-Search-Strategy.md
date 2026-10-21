@@ -61,6 +61,17 @@ companion_files: 00_AI-Context.md, 01_Volunteer-Ops-Platform-Spec.md
 - Given the constraints above make a traditional internship harder to land quickly, the Volunteer Operations Automation Platform (`01_Volunteer-Ops-Platform-Spec.md`) is doing double duty: it's both a learning exercise and the primary evidence of capability for Graduate Program applications where no internship materialises before graduation.
 - It does not replace real work experience, but it meaningfully narrows the gap.
 
+## Pathway 7 — University/institutional "AI Hub" style Graduate Programs (noted 2026-09-01)
+
+A concrete example (University of Sydney "AI Graduate," AI Hub, 3-year fixed term, ~$86k) revealed a job-type category not previously in this list: **universities and large institutions running internal "AI Hub" or Digital Innovation graduate programs** that blend business-process work, Python, AI-assisted development, and automation/RPA — i.e. almost exactly Kent's target positioning ("partner with stakeholders to understand processes, define problems," "evidence of applying AI, Python or automation to a practical problem through personal projects" as a *preferred* qualification).
+
+**Why this category is worth tracking going forward** (not this specific listing — it's the pattern that matters):
+- Responsibilities and preferred qualifications map almost one-to-one onto the flagship project (stakeholder-driven process analysis + Python/AI/automation delivery + reviewing AI-generated code).
+- Explicitly values portfolio/personal-project evidence over formal work experience — a good fit for Kent's situation.
+- Not a Big 4 consultancy, bank, or government role — a different institutional category (university/large-org internal innovation team) worth searching for specifically (e.g. "AI Graduate," "AI Hub graduate," "Digital Innovation graduate," at other universities like UNSW, UTS, or large non-university institutions with similar internal AI/automation teams).
+
+**Important caveat, confirmed on this specific listing**: even within this promising category, individual postings can still say "visa sponsorship is not available" / require unrestricted work rights for the full employment duration — apply the same per-listing visa check as every other pathway, don't assume the category is uniformly open. This particular listing (Feb 2027 start) would be excluded on that basis for Kent pre-485; the same institution's future intakes (post-485, likely 2028 or later) may not carry the same restriction and are worth re-checking closer to the time.
+
 ---
 
 # 2A. Job Title Search Strategy (verified 2026-08-30 — important correction)

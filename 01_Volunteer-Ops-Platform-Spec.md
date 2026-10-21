@@ -471,6 +471,8 @@ Backend validates this before execution.
 
 **Human-in-the-loop:** AI drafts sensitive actions (emails, status changes); admin approves before real Slack/Email send.
 
+**Cost awareness (noted 2026-09-01, to revisit when V3 implementation actually starts):** Tool calling and RAG can multiply LLM calls per interaction, and sending full conversation history/retrieved context on every call inflates token usage — real-world reports (e.g. AI-integrated CRM builders) describe costs like $3–5/day once such a system is in production use. This isn't a V1/V2 concern, but V3 design should keep in mind: minimizing unnecessary context sent per call, using a cheaper/faster model for simple classification-type steps and reserving the more capable model for complex reasoning, and not re-sending full history when a summary would do. Don't over-engineer this now — revisit with then-current best practices once V3 is actually being built.
+
 ---
 
 # 18. AI Evaluation Criteria
